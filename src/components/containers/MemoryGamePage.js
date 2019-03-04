@@ -117,11 +117,11 @@ export class MemoryGamePage extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    gameSettings: state.GameSettingsReducer,
-    gameScore: state.GameScoreReducer,
-    complexity: state.ComplexityReducer,
-    enableGame: state.EnableGameReducer,
-    board: state.BoardReducer
+    gameSettings: state.gameSettings,
+    gameScore: state.gameScore,
+    complexity: state.complexity,
+    enableGame: state.enableGame,
+    board: state.board
   };
 }
 

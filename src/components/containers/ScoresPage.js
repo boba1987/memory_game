@@ -77,7 +77,7 @@ export class HighScorePage extends React.Component {
 function mapStateToProps(state) {
   return {
     loading: state.FetchReducer,
-    scores: state.ScoresReducer
+    scores: state.scores
   };
 }
 

@@ -1,11 +1,11 @@
-import GameScoreReducer from './GameScoreReducer';
+import gameScore from './GameScoreReducer';
 import * as actions from "../constants/actionTypes";
 import InitialState from "./InitialState";
 import expect from 'expect';
 
 describe('fetch reducer', () => {
   it('should return the initial state', () => {
-    expect(GameScoreReducer(undefined, InitialState.score)).toEqual(0);
+    expect(gameScore(undefined, InitialState.score)).toEqual(0);
   });
 
   it('should update score by increment', () => {
@@ -14,7 +14,7 @@ describe('fetch reducer', () => {
       points: 10
     };
 
-    expect(GameScoreReducer(undefined, updateScoreAction)).toEqual(10);
+    expect(gameScore(undefined, updateScoreAction)).toEqual(10);
   });
 
   it('should reset score to 0', () => {
@@ -22,6 +22,6 @@ describe('fetch reducer', () => {
       type: actions.RESET_SCORE
     };
 
-    expect(GameScoreReducer(undefined, resetScoreAction )).toEqual(0);
+    expect(gameScore(undefined, resetScoreAction )).toEqual(0);
   });
 });

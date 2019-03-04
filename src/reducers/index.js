@@ -1,20 +1,20 @@
 import { combineReducers } from 'redux';
-import GameSettingsReducer from './GameSettingsReducer';
-import GameScoreReducer from './GameScoreReducer';
-import ComplexityReducer from './ComplexityReducer';
-import EnableGameReducer from './EnableGameReducer';
-import BoardReducer from './BoardReducer';
+import gameSettings from './GameSettingsReducer';
+import gameScore from './GameScoreReducer';
+import complexity from './ComplexityReducer';
+import enableGame from './EnableGameReducer';
+import board from './BoardReducer';
 import FetchReducer from './FetchReducer';
-import ScoresReducer from './ScoresReducer';
+import scores from './ScoresReducer';
 
 const rootReducer = combineReducers({
-  GameSettingsReducer,
-  GameScoreReducer,
-  ComplexityReducer,
-  EnableGameReducer,
-  BoardReducer,
+  gameSettings,
+  gameScore,
+  complexity,
+  enableGame,
+  board,
   FetchReducer,
-  ScoresReducer
+  scores
 });
 
 export default rootReducer;
