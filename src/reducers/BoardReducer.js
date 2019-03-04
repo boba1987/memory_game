@@ -6,43 +6,43 @@ function updateState(oldValues, newValues) {
   return Object.assign([], oldValues, newValues);
 }
 
-export default function BoardReducer(state = InitialState.board, action) {
-  switch (action.type) {
-    case actions.RESET_BOARD: return utilActions.getShuffled(action.difficulty, action.x);
+const handlers = {
+  [actions.RESET_BOARD]: (action) => utilActions.getShuffled(action.difficulty, action.x),
+  [actions.FLIP_CARD]: (action, state) => {
+    const newState = state[action.ylocation][action.xlocation].flipped = true;
 
-    case actions.FLIP_CARD: {
-      const newState = state[action.ylocation][action.xlocation].flipped = true;
+    return updateState(state, newState);
+  },
+  [actions.FLIP_BACK]: (action, state) => {
+    const newState = action.locations.forEach(location => {
+      state[location.y][location.x].flipped = false;
+    });
 
-      return updateState(state, newState);
-    }
-
-    case actions.FLIP_BACK: {
-      const newState = action.locations.forEach(location => {
-        state[location.y][location.x].flipped = false;
-      });
-
-      return updateState(state, newState);
-    }
-
-    case actions.SET_CARD_TO_RESOLVED: {
-      const newState = action.locations.forEach(location => {
+    return updateState(state, newState);
+  },
+  [actions.SET_CARD_TO_RESOLVED]: (action, state) => {
+    const newState = action.locations.forEach(location => {
         state[location.y][location.x].resolved = true;
       });
 
       return updateState(state, newState);
-    }
-
-    case actions.HIDE_ALL: {
-      const newState = state.map(row => {
-        return row.map(col => {
-          col.flipped = false;
-          return col;
-        });
+  },
+  [actions.HIDE_ALL]: (action, state) => {
+    const newState = state.map(row => {
+      return row.map(col => {
+        col.flipped = false;
+        return col;
       });
+    });
 
-      return updateState(state, newState);  
-    }
+    return updateState(state, newState);  
+  }
+}
 
-    default: return state;
+export default function BoardReducer(state = InitialState.board, action) {
+  if (handlers.hasOwnProperty(action.type)) {
+    return handlers[action.type](action, state)
+  } else {
+    return state
   }
 }
