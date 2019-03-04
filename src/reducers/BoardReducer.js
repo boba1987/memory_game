@@ -2,40 +2,40 @@ import InitialState from "./InitialState";
 import * as actions from "../constants/actionTypes";
 import * as utilActions from "../utils/array";
 
-function updateState(oldValues, newValues) {
-  return Object.assign([], oldValues, newValues);
-}
-
 const handlers = {
   [actions.RESET_BOARD]: (action) => utilActions.getShuffled(action.difficulty, action.x),
   [actions.FLIP_CARD]: (action, state) => {
-    const newState = state[action.ylocation][action.xlocation].flipped = true;
+    const newState = [...state];
+    newState[action.ylocation][action.xlocation].flipped = true;
 
-    return updateState(state, newState);
+    return newState;
   },
   [actions.FLIP_BACK]: (action, state) => {
-    const newState = action.locations.forEach(location => {
-      state[location.y][location.x].flipped = false;
+    const newState = [...state];
+    action.locations.forEach(location => {
+      newState[location.y][location.x].flipped = false;
     });
 
-    return updateState(state, newState);
+    return newState;
   },
   [actions.SET_CARD_TO_RESOLVED]: (action, state) => {
-    const newState = action.locations.forEach(location => {
-        state[location.y][location.x].resolved = true;
+    const newState = [...state];
+    action.locations.forEach(location => {
+        newState[location.y][location.x].resolved = true;
       });
 
-      return updateState(state, newState);
+      return newState;
   },
   [actions.HIDE_ALL]: (action, state) => {
-    const newState = state.map(row => {
+    const newState = [...state];
+    newState.map(row => {
       return row.map(col => {
         col.flipped = false;
         return col;
       });
     });
 
-    return updateState(state, newState);  
+    return newState;
   }
 }
 
