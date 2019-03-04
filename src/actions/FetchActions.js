@@ -7,14 +7,13 @@ export const fetchStart = () => {
 }
 
 export const fetchSuccess = data => {
-  return function (dispatch) {
-    setTimeout(() => {
-      dispatch(
-        {
-          type: types.FETCH_SUCCESS,
-          data
-        }
-      )
-    }, 1000);
+  return async (dispatch) => {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    dispatch(
+      {
+        type: types.FETCH_SUCCESS,
+        data
+      }
+    )
   }
 }
