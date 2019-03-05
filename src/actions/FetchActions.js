@@ -7,14 +7,12 @@ export const fetchStart = () => async (dispatch) => {
     }
   );
   await new Promise(resolve => setTimeout(resolve, 1000));
-  fetchSuccess(JSON.parse(localStorage.getItem('scores')), dispatch)
+  dispatch(fetchSuccess(JSON.parse(localStorage.getItem('scores'))));
 }
 
-export const fetchSuccess = (data, dispatch) => {
-  dispatch(
-    {
-      type: types.FETCH_SUCCESS,
-      data
-    }
-  )
+export const fetchSuccess = (data) => {
+  return {
+    type: types.FETCH_SUCCESS,
+    data
+  }
 }
