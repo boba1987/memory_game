@@ -44,7 +44,7 @@ export class HighScorePage extends React.Component {
                     <TableCell>
                       Name
                     </TableCell>
-                    <TableCell numeric>
+                    <TableCell>
                       Score
                     </TableCell>
                   </TableRow>
@@ -57,7 +57,7 @@ export class HighScorePage extends React.Component {
                           <TableCell>
                             {score.name}
                           </TableCell>
-                          <TableCell numeric>
+                          <TableCell>
                             {score.score}
                           </TableCell>
                         </TableRow>
