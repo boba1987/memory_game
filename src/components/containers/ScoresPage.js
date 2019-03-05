@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as scoreActions from "../../actions/FetchActions";
@@ -12,60 +12,58 @@ import TableRow from '@material-ui/core/TableRow';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {v4} from 'uuid';
 
-export class HighScorePage extends React.Component {
-  componentDidMount() {
-    this.props.fetchActions.fetchStart();
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <Grid container spacing={16}>
-          <Grid item xs={12}>
-            <h2>Score table</h2>
-            <Divider light />
-          </Grid>
-          <Grid xs={4} lg={5} item></Grid>
-          <Grid xs={4} lg={2} item>
-            {this.props.loading ? (
-              <div>
-                <CircularProgress size={50} />
-              </div>
-              ) : (
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>
-                      Name
-                    </TableCell>
-                    <TableCell>
-                      Score
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {
-                    this.props.scores.map((score) => {
-                      return (
-                        <TableRow key={v4()}>
-                          <TableCell>
-                            {score.name}
-                          </TableCell>
-                          <TableCell>
-                            {score.score}
-                          </TableCell>
-                        </TableRow>
-                      )
-                    })
-                  }
-                </TableBody>
-              </Table>
-            )}
-          </Grid>
+function HighScorePage(props) {
+  useEffect(() => {
+    props.fetchActions.fetchStart();
+  }, []);
+  
+  return (
+    <div className="App">
+      <Grid container spacing={16}>
+        <Grid item xs={12}>
+          <h2>Score table</h2>
+          <Divider light />
         </Grid>
-      </div>
-    )
-  }
+        <Grid xs={4} lg={5} item></Grid>
+        <Grid xs={4} lg={2} item>
+          {props.loading ? (
+            <div>
+              <CircularProgress size={50} />
+            </div>
+            ) : (
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>
+                    Name
+                  </TableCell>
+                  <TableCell>
+                    Score
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  props.scores.map((score) => {
+                    return (
+                      <TableRow key={v4()}>
+                        <TableCell>
+                          {score.name}
+                        </TableCell>
+                        <TableCell>
+                          {score.score}
+                        </TableCell>
+                      </TableRow>
+                    )
+                  })
+                }
+              </TableBody>
+            </Table>
+          )}
+        </Grid>
+      </Grid>
+    </div>
+  )
 }
 
 function mapStateToProps(state) {
