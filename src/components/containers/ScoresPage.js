@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as scoreActions from "../../actions/FetchActions";
@@ -13,9 +13,17 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {v4} from 'uuid';
 
 function HighScorePage(props) {
+  const [scores, setScores] = useState(null);
   useEffect(() => {
-    props.fetchActions.fetchStart();
-  }, []);
+    if (!scores) {
+      props.fetchActions.fetchStart();
+      setScores(props.scores);
+    } else {
+      if (props.scores.length !== scores.length) {
+        setScores(props.scores);
+      }
+    }
+  });
   
   return (
     <div className="App">
@@ -44,18 +52,20 @@ function HighScorePage(props) {
               </TableHead>
               <TableBody>
                 {
-                  props.scores.map((score) => {
-                    return (
-                      <TableRow key={v4()}>
-                        <TableCell>
-                          {score.name}
-                        </TableCell>
-                        <TableCell>
-                          {score.score}
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })
+                  scores ? (
+                    props.scores.map((score) => {
+                      return (
+                        <TableRow key={v4()}>
+                          <TableCell>
+                            {score.name}
+                          </TableCell>
+                          <TableCell>
+                            {score.score}
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })
+                  ) : (<TableRow></TableRow>)
                 }
               </TableBody>
             </Table>
