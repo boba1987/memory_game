@@ -17,12 +17,6 @@ export class HighScorePage extends React.Component {
     this.props.fetchActions.fetchStart();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.loading) {
-      this.props.fetchActions.fetchSuccess(JSON.parse(localStorage.getItem('scores')));
-    }
-  }
-
   render() {
     return (
       <div className="App">
