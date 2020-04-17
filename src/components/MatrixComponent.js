@@ -1,22 +1,21 @@
 import React from 'react';
 import Card from './CardComponent';
-import {v4} from 'uuid';
 
-const Matrix = (props) => {
+const Matrix = ({board, cardsFlipped, handleClick, enableGame}) => {
   return (
     <div>
-      {props.board.map((row, rowIndex) => {
+      {board.map((row, rowIndex) => {
         return (
-          <ul className="gridList" key={v4()}>
+          <ul className="gridList" key={rowIndex}>
             {
               row.map((item, colIndex)=> {
                 return (
                   <Card
-                    cardsFlipped={props.cardsFlipped}
-                    enableGame={props.enableGame}
+                    cardsFlipped={cardsFlipped}
+                    enableGame={enableGame}
                     symbol={item.symbol}
                     flipped={item.flipped}
-                    handleClick={props.handleClick}
+                    handleClick={handleClick}
                     uniquekey={item.key}
                     key={item.key}
                     xlocation={colIndex}
