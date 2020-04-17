@@ -1,21 +1,18 @@
 import React from 'react';
 
-const Card = (props) => {
-  return (
-    <li className={(props.flipped ? 'flipped' : ' ') + ' ' +(props.resolved ? 'resolved': ' ')}
+const Card = ({flipped, resolved, enableGame, cardsFlipped, xlocation, uniquekey, symbol, handleClick}) =>
+    <li className={`${flipped ? 'flipped' : ' '}  ${resolved ? 'resolved': ' '}`}
         onClick={
           () => {
-            if (props.enableGame && !props.flipped && props.cardsFlipped < 2) {
-              props.handleClick(props)
+            if (enableGame && !flipped && cardsFlipped < 2) {
+              handleClick({flipped, resolved, enableGame, cardsFlipped, xlocation, uniquekey, symbol})
             }
           }
         }
-        xlocation={props.xlocation}
-        ylocation={props.ylocation}
-        uniquekey={props.uniquekey}>
-      <i className={"fas " + props.symbol}></i>
+        xlocation={xlocation}
+        ylocation={ylocation}
+        uniquekey={uniquekey}>
+      <i className={`fas ${symbol}`}></i>
     </li>
-  )
-};
 
 export default Card;
